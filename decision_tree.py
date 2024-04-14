@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score
 df = pd.read_csv('water_potability.csv')
 
 # Приведение к числовому формату пустых ячеек
-features = ['ph', 'Hardness', 'Solids', 'Chloramines', 'Sulfate', 'Conductivity', 'Organic_carbon', 'Trihalomethanes', 'Turbidity']
+features = ['ph', 'Hardness', 'Solids', 'Chloramines', 'Sulfate', 'Conductivity', 'Organic_carbon', 'Trihalomethanes', 'Turbidity', 'Potability']
 df[features] = df[features].fillna(df[features].mean())
 
 # Выделение признаков и целевой переменной
@@ -35,12 +35,12 @@ y_pred_rf = model_rf.predict(X_test)
 # Оценка качества моделей
 accuracy_dt = accuracy_score(y_test, y_pred_dt)
 accuracy_rf = accuracy_score(y_test, y_pred_rf)
-print("\033[92m\nОценки работы моделей\033[00m")
+print("Оценки работы моделей")
 print('Accuracy DecisionTreeClassifier: ', accuracy_dt)
 print('Accuracy RandomForestClassifier: ', accuracy_rf)
 
 # Сравнение важности характеристик моделей
-print("\033[92m\nОценки важности признаков\033[00m")
+print("Оценки важности признаков")
 df_features = pd.DataFrame({'Признак': X.columns, 'DT': model_dt.feature_importances_, 'RF': model_rf.feature_importances_,
                             'Среднее': (model_dt.feature_importances_ + model_rf.feature_importances_) / 2})
 print(df_features)
